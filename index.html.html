@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planificación Viaje Cali 2025</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .tab-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            background: rgba(255,255,255,0.9);
+            border-radius: 15px;
+            padding: 10px;
+        }
+        
+        .tab {
+            padding: 12px 24px;
+            background: transparent;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            margin: 0 5px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .tab.active {
+            background: #667eea;
+            color: white;
+        }
+        
+        .tab:hover {
+            background: rgba(102, 126, 234, 0.1);
+        }
+        
+        .content {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .phase-section {
+            display: none;
+        }
+        
+        .phase-section.active {
+            display: block;
+        }
+        
+        .phase-header {
+            color: #667eea;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .info-card {
+            background: #f8f9ff;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .info-card h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 2px;
+            background: #f0f0f0;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .calendar-header {
+            background: #667eea;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .calendar-day {
+            background: white;
+            padding: 10px;
+            text-align: center;
+            min-height: 60px;
+            border-radius: 5px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .calendar-day:hover {
+            background: #f0f0ff;
+        }
+        
+        .calendar-day.today {
+            background: #667eea;
+            color: white;
+        }
+        
+        .calendar-day.travel {
+            background: #ffeaa7;
+        }
+        
+        .calendar-day.medical {
+            background: #81ecec;
+        }
+        
+        .calendar-day.tourism {
+            background: #fd79a8;
+        }
+        
+        .checklist {
+            background: #f8f9ff;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+            padding: 10px;
+            background: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .checklist-item:hover {
+            background: #f0f0ff;
+        }
+        
+        .checklist-item input[type="checkbox"] {
+            margin-right: 15px;
+            transform: scale(1.2);
+        }
+        
+        .checklist-item.completed {
+            opacity: 0.6;
+            text-decoration: line-through;
+        }
+        
+        .budget-summary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+        
+        .budget-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.3);
+        }
+        
+        .budget-total {
+            font-size: 1.2em;
+            font-weight: bold;
+            border-top: 2px solid white;
+            padding-top: 15px;
+            margin-top: 15px;
+        }
+        
+        .alert {
+            background: #ffeaa7;
+            border: 1px solid #fdcb6e;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+        
+        .timeline {
+            position: relative;
+            margin: 20px 0;
+        }
+        
+        .timeline-item {
+            margin: 20px 0;
+            padding: 15px;
+            background: white;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+            position: relative;
+        }
+        
+        .timeline-date {
+            color: #667eea;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .expense-calculator {
+            background: #f8f9ff;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .calc-input {
+            margin: 10px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .calc-input input {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 100px;
+        }
+        
+        .calc-result {
+            background: #667eea;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+                    <div class="header">
+            <h1>🛫 Planificación Viaje Venezuela-Colombia 2025</h1>
+            <p><strong>Ruta:</strong> Valencia, VE → Cúcuta → Cali → (Medellín*) → (Bogotá*) → Cúcuta → Valencia</p>
+            <p><strong>Duración:</strong> 28 Julio - 15 Septiembre (7+ semanas) | <strong>Viajeros:</strong> 2 personas</p>
+            <p><small>*Ciudades condicionales según confirmación de hospedaje</small></p>
+        </div>
+        
+        <div class="tab-container">
+            <button class="tab active" onclick="showTab('general')">📋 General</button>
+            <button class="tab" onclick="showTab('preparativos')">📝 Preparativos</button>
+            <button class="tab" onclick="showTab('cronograma')">📅 Cronograma</button>
+            <button class="tab" onclick="showTab('presupuesto')">💰 Presupuesto</button>
+            <button class="tab" onclick="showTab('registro')">📊 Registro Gastos</button>
+            <button class="tab" onclick="showTab('checklist')">✅ Checklist</button>
+        </div>
+        
+        <div class="content">
+            <div id="general" class="phase-section active">
+                <h2 class="phase-header">🎯 Resumen General del Viaje</h2>
+                
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h4>🚌 Transporte & Movilidad</h4>
+                        <p><strong>Valencia → Cúcuta:</strong> $45 USD c/u</p>
+                        <p><strong>Cúcuta → Cali:</strong> $120,000 COP c/u</p>
+                        <p><strong>Urbano:</strong> Transporte público + DiDi</p>
+                        <p><strong>Apps:</strong> DiDi (principal), transporte público</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h4>🏥 Citas Médicas</h4>
+                        <p><strong>Cita 1:</strong> 31 de Julio (confirmada)</p>
+                        <p><strong>Cita 2:</strong> Mediados de Agosto (por confirmar)</p>
+                        <p><strong>Objetivo:</strong> Turismo médico</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h4>🏠 Alojamiento Condicional</h4>
+                        <p><strong>Cali:</strong> Casa de amigo (confirmado)</p>
+                        <p><strong>Medellín:</strong> Solo si confirman hospedaje</p>
+                        <p><strong>Bogotá:</strong> Solo si confirman hospedaje</p>
+                        <p><strong>Cúcuta:</strong> Última parada (breve)</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h4>🍽️ Alimentación & Compras</h4>
+                        <p><strong>Delivery:</strong> DiDi Food</p>
+                        <p><strong>Comida:</strong> Callejera + cocinar en casa</p>
+                        <p><strong>Ropa:</strong> Comprar allá (viaje ligero)</p>
+                        <p><strong>Equipaje:</strong> 2 bolsos + 1 bolso + 1 maleta</p>
+                    </div>
+                </div>
+                
+                <div class="alert">
+                    <strong>⚠️ Consideraciones Importantes:</strong>
+                    <ul style="margin-top: 10px;">
+                        <li><strong>Trabajo remoto:</strong> 3-4 días/semana mínimo en Cali</li>
+                        <li><strong>Vida nocturna:</strong> Varias salidas nocturnas en Cali (planificadas)</li>
+                        <li><strong>Destinos condicionales:</strong> Medellín/Bogotá solo con hospedaje confirmado</li>
+                        <li><strong>Ruta de regreso:</strong> Cali → Medellín → Bogotá → Cúcuta → Venezuela</li>
+                        <li><strong>Equipaje ligero:</strong> Comprar ropa en Colombia para traer</li>
+                        <li><strong>Flexibilidad total:</strong> Fechas ajustables según confirmaciones</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div id="preparativos" class="phase-section">
+                <h2 class="phase-header">📝 Fase de Preparativos</h2>
+                
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-date">1-2 semanas antes (14-21 Julio)</div>
+                        <h4>Documentación y Confirmaciones</h4>
+                        <ul>
+                            <li>Confirmar segunda cita médica (mediados agosto)</li>
+                            <li><strong>CRÍTICO:</strong> Confirmar hospedaje Medellín y Bogotá</li>
+                            <li>Verificar documentos de identidad</li>
+                            <li>Organizar trabajo remoto (3-4 días/semana)</li>
+                            <li>Investigar vida nocturna Cali (planificar salidas)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-date">1 semana antes (21-28 Julio)</div>
+                        <h4>Logística Final</h4>
+                        <ul>
+                            <li>Comprar pasajes Valencia → Cúcuta</li>
+                            <li>Reservar Cristo Rey Cali (entrada gratuita)</li>
+                            <li>Instalar DiDi y configurar métodos de pago</li>
+                            <li>Cambio de moneda (USD/COP)</li>
+                            <li>Empacar ligero: equipaje + espacio para compras</li>
+                            <li>Definir ruta final según hospedajes confirmados</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="expense-calculator">
+                    <h4>🧮 Calculadora de Gastos Personalizable</h4>
+                    <div class="calc-input">
+                        <label>Documentos/Trámites:</label>
+                        <input type="number" id="docs" value="0" onchange="calculatePrep()" placeholder="COP">
+                        <span>COP</span>
+                    </div>
+                    <div class="calc-input">
+                        <label>Hospedaje Medellín (si confirman):</label>
+                        <input type="number" id="medellin" value="0" onchange="calculatePrep()" placeholder="COP">
+                        <span>COP</span>
+                    </div>
+                    <div class="calc-input">
+                        <label>Hospedaje Bogotá (si confirman):</label>
+                        <input type="number" id="bogota" value="0" onchange="calculatePrep()" placeholder="COP">
+                        <span>COP</span>
+                    </div>
+                    <div class="calc-input">
+                        <label>Hospedaje Cúcuta (breve estadía):</label>
+                        <input type="number" id="cucuta" value="50000" onchange="calculatePrep()" placeholder="COP">
+                        <span>COP</span>
+                    </div>
+                    <div class="calc-input">
+                        <label>Configuración DiDi/Apps:</label>
+                        <input type="number" id="apps" value="0" onchange="calculatePrep()" placeholder="COP">
+                        <span>COP</span>
+                    </div>
+                    <div class="calc-input">
+                        <label>Otros gastos preparativos:</label>
+                        <input type="number" id="otros" value="100000" onchange="calculatePrep()" placeholder="COP">
+                        <span>COP</span>
+                    </div>
+                    <div class="calc-result" id="prepResult">
+                        Total Preparativos: $150,000 COP ($37 USD aprox)
+                    </div>
+                </div>
+            </div>
+            
+            <div id="cronograma" class="phase-section">
+                <h2 class="phase-header">📅 Cronograma Visual Julio-Septiembre 2025</h2>
+                
+                <div style="display: flex; gap: 20px; margin-bottom: 20px;">
+                    <div style="display: flex; align-items: center;">
+                        <div style="width: 20px; height: 20px; background: #ffeaa7; margin-right: 10px; border-radius: 3px;"></div>
+                        <span>Viaje</span>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <div style="width: 20px; height: 20px; background: #81ecec; margin-right: 10px; border-radius: 3px;"></div>
+                        <span>Médico</span>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <div style="width: 20px; height: 20px; background: #fd79a8; margin-right: 10px; border-radius: 3px;"></div>
+                        <span>Turismo</span>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <div style="width: 20px; height: 20px; background: #667eea; margin-right: 10px; border-radius: 3px;"></div>
+                        <span>Hoy</span>
+                    </div>
+                </div>
+                
+                <div class="calendar" id="calendar">
+                    <!-- Calendar will be generated by JavaScript -->
+                </div>
+                
+                <div class="info-grid" style="margin-top: 30px;">
+                    <div class="info-card">
+                        <h4>🎯 Puntos Clave</h4>
+                        <p><strong>28-29 Jul:</strong> Viaje Valencia → Cali</p>
+                        <p><strong>31 Jul:</strong> Primera cita médica</p>
+                        <p><strong>Ago:</strong> Estancia principal Cali + trabajo remoto</p>
+                        <p><strong>Sep 1-15:</strong> Ruta regreso por ciudades</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h4>🏙️ Vida Nocturna Cali</h4>
+                        <p><strong>Frecuencia:</strong> Varias salidas nocturnas planificadas</p>
+                        <p><strong>Balance:</strong> 3-4 días trabajo/semana mínimo</p>
+                        <p><strong>Zonas:</strong> Granada, Zona Rosa, San Antonio</p>
+                        <p><strong>Transporte:</strong> DiDi para movilidad nocturna</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="presupuesto" class="phase-section">
+                <h2 class="phase-header">💰 Presupuesto Conservador (2 personas, 7+ semanas)</h2>
+                
+                <div class="budget-summary">
+                    <h3>📊 Resumen Presupuestario</h3>
+                    <div class="budget-item">
+                        <span>Transporte Principal (Valencia-Cúcuta-Cali)</span>
+                        <span>$240,000 COP + $90 USD</span>
+                    </div>
+                    <div class="budget-item">
+                        <span>Transporte Urbano & DiDi (7+ semanas)</span>
+                        <span>$300,000 - $500,000 COP</span>
+                    </div>
+                    <div class="budget-item">
+                        <span>Alojamiento Condicional (Medellín/Bogotá/Cúcuta)</span>
+                        <span>$0 - $600,000 COP</span>
+                    </div>
+                    <div class="budget-item">
+                        <span>Alimentación DiDi + Callejera + Casera (7+ semanas)</span>
+                        <span>$1,200,000 - $2,000,000 COP</span>
+                    </div>
+                    <div class="budget-item">
+                        <span>Vida Nocturna Cali (varias salidas)</span>
+                        <span>$400,000 - $800,000 COP</span>
+                    </div>
+                    <div class="budget-item">
+                        <span>Compras Ropa & Souvenirs</span>
+                        <span>$500,000 - $1,000,000 COP</span>
+                    </div>
+                    <div class="budget-item">
+                        <span>Turismo & Entretenimiento</span>
+                        <span>$200,000 - $400,000 COP</span>
+                    </div>
+                    <div class="budget-item">
+                        <span>Contingencias (15%)</span>
+                        <span>$484,000 - $827,000 COP</span>
+                    </div>
+                    <div class="budget-total">
+                        <span>TOTAL ESTIMADO</span>
+                        <span>$3,324,000 - $6,127,000 COP + $90 USD</span>
+                    </div>
+                </div>
+                
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h4>💡 Consejos de Ahorro</h4>
+                        <ul>
+                            <li>Aprovechar alojamiento gratuito en Cali (base principal)</li>
+                            <li>Comida callejera + cocinar en casa vs restaurantes</li>
+                            <li>DiDi compartido + transporte público</li>
+                            <li>Ir solo a ciudades con hospedaje confirmado</li>
+                            <li>Comprar ropa local (mejor precio que traer equipaje)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h4>📱 Apps Esenciales</h4>
+                        <ul>
+                            <li><strong>Transporte:</strong> DiDi (principal), transporte público</li>
+                            <li><strong>Comida:</strong> DiDi Food, Rappi</li>
+                            <li><strong>Hospedaje:</strong> Booking (para ciudades condicionales)</li>
+                            <li><strong>Compras:</strong> Mercado Libre, apps locales</li>
+                            <li><strong>Vida nocturna:</strong> Google Maps, redes locales</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="registro" class="phase-section">
+                <h2 class="phase-header">📊 Registro de Gastos en Tiempo Real</h2>
+                
+                <div class="expense-calculator">
+                    <h4>➕ Agregar Nuevo Gasto</h4>
+                    <div style="display: grid; grid-template-columns: 2fr 1fr 1fr auto; gap: 10px; align-items: center; margin-bottom: 15px;">
+                        <input type="text" id="expenseDesc" placeholder="Descripción del gasto" style="padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                        <input type="number" id="expenseAmount" placeholder="Monto COP" style="padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                        <select id="expenseCategory" style="padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                            <option value="">Categoría</option>
+                            <option value="transporte">🚌 Transporte</option>
+                            <option value="comida">🍽️ Comida</option>
+                            <option value="alojamiento">🏠 Alojamiento</option>
+                            <option value="nocturna">🌙 Vida Nocturna</option>
+                            <option value="compras">🛍️ Compras</option>
+                            <option value="turismo">🎯 Turismo</option>
+                            <option value="medico">🏥 Médico</option>
+                            <option value="otros">📦 Otros</option>
+                        </select>
+                        <button id="addExpenseBtn" style="padding: 10px 15px; background: #667eea; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">Agregar</button>
+                    </div>
+                </div>
+                
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h4>💰 Resumen por Categorías</h4>
+                        <div id="categorySummary">
+                            <div style="display: flex; justify-content: space-between; margin: 8px 0; padding: 5px 0; border-bottom: 1px solid #f0f0f0;">
+                                <span>🚌 Transporte:</span>
+                                <span id="totalTransporte" style="font-weight: bold;">$0 COP</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin: 8px 0; padding: 5px 0; border-bottom: 1px solid #f0f0f0;">
+                                <span>🍽️ Comida:</span>
+                                <span id="totalComida" style="font-weight: bold;">$0 COP</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin: 8px 0; padding: 5px 0; border-bottom: 1px solid #f0f0f0;">
+                                <span>🏠 Alojamiento:</span>
+                                <span id="totalAlojamiento" style="font-weight: bold;">$0 COP</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin: 8px 0; padding: 5px 0; border-bottom: 1px solid #f0f0f0;">
+                                <span>🌙 Vida Nocturna:</span>
+                                <span id="totalNocturna" style="font-weight: bold;">$0 COP</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin: 8px 0; padding: 5px 0; border-bottom: 1px solid #f0f0f0;">
+                                <span>🛍️ Compras:</span>
+                                <span id="totalCompras" style="font-weight: bold;">$0 COP</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin: 8px 0; padding: 5px 0; border-bottom: 1px solid #f0f0f0;">
+                                <span>🎯 Turismo:</span>
+                                <span id="totalTurismo" style="font-weight: bold;">$0 COP</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin: 8px 0; padding: 5px 0; border-bottom: 1px solid #f0f0f0;">
+                                <span>🏥 Médico:</span>
+                                <span id="totalMedico" style="font-weight: bold;">$0 COP</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin: 8px 0; padding: 5px 0; border-bottom: 1px solid #f0f0f0;">
+                                <span>📦 Otros:</span>
+                                <span id="totalOtros" style="font-weight: bold;">$0 COP</span>
+                            </div>
+                            <hr style="margin: 15px 0; border: 2px solid #667eea;">
+                            <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 1.2em; color: #667eea;">
+                                <span>💵 TOTAL GASTADO:</span>
+                                <span id="totalGeneral">$0 COP</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h4>📈 Control de Presupuesto</h4>
+                        <div style="margin: 15px 0;">
+                            <label style="font-weight: bold;">Presupuesto total planeado (COP):</label>
+                            <input type="number" id="budgetLimit" value="4500000" style="width: 100%; padding: 10px; margin-top: 8px; border: 1px solid #ddd; border-radius: 5px; font-weight: bold;">
+                        </div>
+                        <div id="budgetControl">
+                            <div style="margin: 15px 0;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                    <span style="font-weight: bold;">Progreso del gasto:</span>
+                                    <span id="percentageUsed" style="font-weight: bold;">0%</span>
+                                </div>
+                                <div style="background: #f0f0f0; height: 25px; border-radius: 12px; overflow: hidden; margin: 8px 0;">
+                                    <div id="progressBar" style="background: #00b894; height: 100%; width: 0%; transition: all 0.4s ease; border-radius: 12px;"></div>
+                                </div>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin: 10px 0; font-weight: bold;">
+                                <span>💰 Presupuesto restante:</span>
+                                <span id="budgetRemaining" style="color: #00b894;">$4,500,000 COP</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="checklist" style="max-height: 500px; overflow-y: auto;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                        <h4>📝 Historial de Gastos</h4>
+                        <div>
+                            <button id="clearAllBtn" style="background: #fd79a8; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; margin: 0 5px; font-size: 0.9em;">
+                                🗑️ Limpiar Todo
+                            </button>
+                            <button id="exportBtn" style="background: #00b894; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; margin: 0 5px; font-size: 0.9em;">
+                                📁 Exportar
+                            </button>
+                        </div>
+                    </div>
+                    <div id="expenseHistory">
+                        <div style="text-align: center; color: #666; padding: 30px; background: #f8f9ff; border-radius: 10px; border: 2px dashed #ddd;">
+                            <div style="font-size: 2em; margin-bottom: 10px;">💳</div>
+                            <p><strong>No hay gastos registrados aún</strong></p>
+                            <p>¡Agrega tu primer gasto usando el formulario de arriba!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="checklist" class="phase-section">
+                <h2 class="phase-header">✅ Lista de Verificación Interactiva</h2>
+                
+                <div class="checklist">
+                    <h4>📋 Antes del Viaje</h4>
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <input type="checkbox" id="doc1">
+                        <label for="doc1">Verificar vigencia cédulas Venezuela y Colombia</label>
+                    </div>
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <input type="checkbox" id="doc2">
+                        <label for="doc2">Confirmar segunda cita médica (mediados agosto)</label>
+                    </div>
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <input type="checkbox" id="doc3">
+                        <label for="doc3">🔥 CRÍTICO: Confirmar hospedaje Medellín</label>
+                    </div>
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <input type="checkbox" id="doc4">
+                        <label for="doc4">🔥 CRÍTICO: Confirmar hospedaje Bogotá</label>
+                    </div>
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <input type="checkbox" id="doc5">
+                        <label for="doc5">Comprar pasajes Valencia → Cúcuta ($45 USD c/u)</label>
+                    </div>
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <input type="checkbox" id="doc6">
+                        <label for="doc6">Organizar trabajo remoto (3-4 días/semana mínimo)</label>
+                    </div>
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <input type="checkbox" id="doc7">
+                        <label for="doc7">Instalar y configurar DiDi + métodos de pago</label>
+                    </div>
+                </div>
+                
+                <div class="checklist">
+                    <h4>🧳 Equipaje Estratégico</h4>
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <input type="checkbox" id="bag1">
+                        <label for="bag1">Laptop y equipos trabajo remoto</label>
+                    </div>
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <input type="checkbox" id="bag2">
+                        <label for="bag2">Documentos médicos para consultas</label>
+                    </div>
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <input type="checkbox" id="bag3">
+                        <label for="bag3">Ropa mínima para clima cálido (comprar allá)</label>
+                    </div>
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <input type="checkbox" id="bag4">
+                        <label for="bag4">2 bolsos grandes + 1 bolso adicional + 1 maleta</label>
+                    </div>
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <input type="checkbox" id="bag5">
+                        <label for="bag5">Espacio libre para compras de ropa/souvenirs</label>
+                    </div>
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <input type="checkbox" id="bag6">
+                        <label for="bag6">Medicamentos personales (7+ semanas)</label>
+                    </div>
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <input type="checkbox" id="bag7">
+                        <label for="bag7">Efectivo USD y tarjetas bancarias</label>
+                    </div>
+                </div>
+                
+                <div class="checklist">
+                    <h4>📍 Durante el Viaje</h4>
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <input type="checkbox" id="trip1">
+                        <label for="trip1">Comprar pasajes Cúcuta → Cali ($120,000 COP c/u)</label>
+                    </div>
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <input type="checkbox" id="trip2">
+                        <label for="trip2">Reservar Cristo Rey Cali (gratuito con reserva)</label>
+                    </div>
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <input type="checkbox" id="trip3">
+                        <label for="trip3">Organizar vida nocturna Cali (varias salidas planificadas)</label>
+                    </div>
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <input type="checkbox" id="trip4">
+                        <label for="trip4">Mantener balance: 3-4 días trabajo/semana</label>
+                    </div>
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <input type="checkbox" id="trip5">
+                        <label for="trip5">Confirmar ruta regreso según hospedajes</label>
+                    </div>
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <input type="checkbox" id="trip6">
+                        <label for="trip6">Confirmar segunda cita médica (mediados agosto)</label>
+                    </div>
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <input type="checkbox" id="trip7">
+                        <label for="trip7">Comprar ropa y souvenirs para traer</label>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 30px;">
+                    <button onclick="checkAll()" style="background: #667eea; color: white; border: none; padding: 12px 24px; border-radius: 10px; cursor: pointer; margin: 5px;">
+                        ✅ Marcar Todos
+                    </button>
+                    <button onclick="uncheckAll()" style="background: #fd79a8; color: white; border: none; padding: 12px 24px; border-radius: 10px; cursor: pointer; margin: 5px;">
+                        ❌ Desmarcar Todos
+                    </button>
+                    <button onclick="getProgress()" style="background: #00b894; color: white; border: none; padding: 12px 24px; border-radius: 10px; cursor: pointer; margin: 5px;">
+                        📊 Ver Progreso
+                    </button>
+                </div>
+                
+                <div id="progress" style="margin-top: 20px; text-align: center; font-weight: bold; color: #667eea;"></div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function showTab(tabName) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.phase-section');
+            sections.forEach(section => section.classList.remove('active'));
+            
+            // Remove active class from all tabs
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Show selected section and mark tab as active
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+            
+            // Generate calendar when cronograma tab is shown
+            if (tabName === 'cronograma') {
+                generateCalendar();
+            }
+        }
+        
+        function generateCalendar() {
+            const calendar = document.getElementById('calendar');
+            calendar.innerHTML = '';
+            
+            // Create container for the three months
+            const monthsContainer = document.createElement('div');
+            monthsContainer.style.display = 'grid';
+            monthsContainer.style.gridTemplateColumns = 'repeat(auto-fit, minmax(320px, 1fr))';
+            monthsContainer.style.gap = '20px';
+            
+            // JULIO 2025 - Solo última semana (28-31 julio)
+            const julioCalendar = createCompleteMonth('Julio 2025', 'Solo Última Semana', 2025, 6, {
+                28: {class: 'travel', label: 'Salida VE'},
+                29: {class: 'travel', label: 'Viaje'},
+                30: {class: 'tourism', label: 'Llegada'},
+                31: {class: 'medical', label: 'Cita 1'}
+            }, [28, 29, 30, 31]);
+            
+            // AGOSTO 2025 - Mes completo, estancia principal
+            const agostoCalendar = createCompleteMonth('Agosto 2025', 'Estancia Principal Cali', 2025, 7, {
+                3: {class: 'tourism', label: 'Salida 1'},
+                10: {class: 'tourism', label: 'Salida 2'},
+                15: {class: 'medical', label: 'Cita 2?'},
+                17: {class: 'tourism', label: 'Salida 3'},
+                24: {class: 'tourism', label: 'Salida 4'},
+                31: {class: 'travel', label: 'Prep Regreso'}
+            });
+            
+            // SEPTIEMBRE 2025 - Solo primera quincena (1-15 sept)
+            const septiembreCalendar = createCompleteMonth('Septiembre 2025', 'Ruta de Regreso', 2025, 8, {
+                1: {class: 'travel', label: 'Medellín?'},
+                5: {class: 'travel', label: 'Bogotá?'},
+                10: {class: 'travel', label: 'Cúcuta'},
+                15: {class: 'travel', label: 'Valencia'}
+            }, [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]);
+            
+            monthsContainer.appendChild(julioCalendar);
+            monthsContainer.appendChild(agostoCalendar);
+            monthsContainer.appendChild(septiembreCalendar);
+            
+            calendar.appendChild(monthsContainer);
+        }
+        
+        function createCompleteMonth(monthName, subtitle, year, monthIndex, events = {}, showOnlyDays = null) {
+            const monthDiv = document.createElement('div');
+            monthDiv.style.background = 'white';
+            monthDiv.style.padding = '20px';
+            monthDiv.style.borderRadius = '15px';
+            monthDiv.style.boxShadow = '0 4px 15px rgba(0,0,0,0.1)';
+            monthDiv.style.border = '1px solid #e0e0e0';
+            
+            // Month header
+            const header = document.createElement('div');
+            header.style.textAlign = 'center';
+            header.style.marginBottom = '15px';
+            header.innerHTML = `
+                <h3 style="color: #667eea; margin: 0; font-size: 1.2em;">${monthName}</h3>
+                <p style="color: #666; margin: 5px 0 0 0; font-size: 0.9em;">${subtitle}</p>
+            `;
+            monthDiv.appendChild(header);
+            
+            // Calendar grid
+            const calendarGrid = document.createElement('div');
+            calendarGrid.style.display = 'grid';
+            calendarGrid.style.gridTemplateColumns = 'repeat(7, 1fr)';
+            calendarGrid.style.gap = '3px';
+            
+            // Day headers
+            const dayHeaders = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+            dayHeaders.forEach(day => {
+                const headerCell = document.createElement('div');
+                headerCell.style.background = '#667eea';
+                headerCell.style.color = 'white';
+                headerCell.style.padding = '8px 4px';
+                headerCell.style.textAlign = 'center';
+                headerCell.style.fontWeight = 'bold';
+                headerCell.style.fontSize = '11px';
+                headerCell.style.borderRadius = '4px';
+                headerCell.textContent = day;
+                calendarGrid.appendChild(headerCell);
+            });
+            
+            // Get first day of month and number of days
+            const firstDay = new Date(year, monthIndex, 1).getDay();
+            const daysInMonth = new Date(year, monthIndex + 1, 0).getDate();
+            
+            // Add empty cells for days before month starts
+            for (let i = 0; i < firstDay; i++) {
+                const emptyCell = document.createElement('div');
+                emptyCell.style.background = '#f8f8f8';
+                emptyCell.style.minHeight = '45px';
+                emptyCell.style.borderRadius = '4px';
+                calendarGrid.appendChild(emptyCell);
+            }
+            
+            // Add days of the month
+            for (let day = 1; day <= daysInMonth; day++) {
+                // Skip days not in showOnlyDays if specified
+                if (showOnlyDays && !showOnlyDays.includes(day)) {
+                    continue;
+                }
+                
+                const dayCell = document.createElement('div');
+                dayCell.style.background = '#ffffff';
+                dayCell.style.border = '1px solid #e0e0e0';
+                dayCell.style.minHeight = '45px';
+                dayCell.style.borderRadius = '4px';
+                dayCell.style.padding = '4px';
+                dayCell.style.display = 'flex';
+                dayCell.style.flexDirection = 'column';
+                dayCell.style.justifyContent = 'center';
+                dayCell.style.alignItems = 'center';
+                dayCell.style.cursor = 'pointer';
+                dayCell.style.transition = 'all 0.2s';
+                
+                // Add day number
+                const dayNumber = document.createElement('div');
+                dayNumber.style.fontWeight = 'bold';
+                dayNumber.style.fontSize = '12px';
+                dayNumber.textContent = day;
+                dayCell.appendChild(dayNumber);
+                
+                // Check for events
+                if (events[day]) {
+                    const event = events[day];
+                    
+                    // Set background color based on event type
+                    if (event.class === 'travel') {
+                        dayCell.style.background = '#ffeaa7';
+                        dayCell.style.border = '2px solid #fdcb6e';
+                    } else if (event.class === 'medical') {
+                        dayCell.style.background = '#81ecec';
+                        dayCell.style.border = '2px solid #00cec9';
+                    } else if (event.class === 'tourism') {
+                        dayCell.style.background = '#fd79a8';
+                        dayCell.style.border = '2px solid #e84393';
+                        dayNumber.style.color = 'white';
+                    }
+                    
+                    // Add event label
+                    const eventLabel = document.createElement('div');
+                    eventLabel.style.fontSize = '9px';
+                    eventLabel.style.textAlign = 'center';
+                    eventLabel.style.marginTop = '2px';
+                    eventLabel.style.fontWeight = 'bold';
+                    if (event.class === 'tourism') {
+                        eventLabel.style.color = 'white';
+                    } else {
+                        eventLabel.style.color = '#333';
+                    }
+                    eventLabel.textContent = event.label;
+                    dayCell.appendChild(eventLabel);
+                }
+                
+                // Highlight today if it's the current month
+                const today = new Date();
+                if (year === today.getFullYear() && monthIndex === today.getMonth() && day === today.getDate()) {
+                    dayCell.style.background = '#667eea';
+                    dayCell.style.color = 'white';
+                    dayNumber.style.color = 'white';
+                    
+                    const todayLabel = document.createElement('div');
+                    todayLabel.style.fontSize = '8px';
+                    todayLabel.style.color = 'white';
+                    todayLabel.style.fontWeight = 'bold';
+                    todayLabel.textContent = 'HOY';
+                    dayCell.appendChild(todayLabel);
+                }
+                
+                // Add hover effect
+                dayCell.addEventListener('mouseenter', function() {
+                    if (!this.style.background.includes('#667eea')) {
+                        this.style.transform = 'scale(1.05)';
+                        this.style.boxShadow = '0 2px 8px rgba(0,0,0,0.15)';
+                    }
+                });
+                
+                dayCell.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1)';
+                    this.style.boxShadow = 'none';
+                });
+                
+                calendarGrid.appendChild(dayCell);
+            }
+            
+            monthDiv.appendChild(calendarGrid);
+            return monthDiv;
+        }
+        
+        function toggleCheck(element) {
+            const checkbox = element.querySelector('input[type="checkbox"]');
+            checkbox.checked = !checkbox.checked;
+            
+            if (checkbox.checked) {
+                element.classList.add('completed');
+            } else {
+                element.classList.remove('completed');
+            }
+        }
+        
+        function checkAll() {
+            const checkboxes = document.querySelectorAll('.checklist-item input[type="checkbox"]');
+            const items = document.querySelectorAll('.checklist-item');
+            
+            checkboxes.forEach((checkbox, index) => {
+                checkbox.checked = true;
+                items[index].classList.add('completed');
+            });
+        }
+        
+        function uncheckAll() {
+            const checkboxes = document.querySelectorAll('.checklist-item input[type="checkbox"]');
+            const items = document.querySelectorAll('.checklist-item');
+            
+            checkboxes.forEach((checkbox, index) => {
+                checkbox.checked = false;
+                items[index].classList.remove('completed');
+            });
+        }
+        
+        function getProgress() {
+            const checkboxes = document.querySelectorAll('.checklist-item input[type="checkbox"]');
+            const checked = document.querySelectorAll('.checklist-item input[type="checkbox"]:checked');
+            
+            const percentage = Math.round((checked.length / checkboxes.length) * 100);
+            
+            document.getElementById('progress').innerHTML = 
+                `Progreso: ${checked.length}/${checkboxes.length} tareas completadas (${percentage}%)`;
+        }
+        
+        function calculatePrep() {
+            const docs = parseInt(document.getElementById('docs').value) || 0;
+            const medellin = parseInt(document.getElementById('medellin').value) || 0;
+            const bogota = parseInt(document.getElementById('bogota').value) || 0;
+            const cucuta = parseInt(document.getElementById('cucuta').value) || 0;
+            const apps = parseInt(document.getElementById('apps').value) || 0;
+            const otros = parseInt(document.getElementById('otros').value) || 0;
+            
+            const total = docs + medellin + bogota + cucuta + apps + otros;
+            const usd = Math.round(total / 4000); // Approximate conversion
+            
+            document.getElementById('prepResult').textContent = 
+                `Total Preparativos: ${total.toLocaleString()} COP (${usd} USD aprox)`;
+        }
+        
+        // Expense tracking functionality
+        let expenses = [];
+        
+        function addExpense() {
+            const desc = document.getElementById('expenseDesc').value.trim();
+            const amount = parseInt(document.getElementById('expenseAmount').value);
+            const category = document.getElementById('expenseCategory').value;
+            
+            if (!desc || !amount || !category) {
+                alert('Por favor completa todos los campos');
+                return;
+            }
+            
+            const expense = {
+                id: Date.now(),
+                date: new Date().toLocaleDateString('es-CO'),
+                description: desc,
+                amount: amount,
+                category: category
+            };
+            
+            expenses.push(expense);
+            
+            // Clear form
+            document.getElementById('expenseDesc').value = '';
+            document.getElementById('expenseAmount').value = '';
+            document.getElementById('expenseCategory').value = '';
+            
+            updateExpenseDisplay();
+        }
+        
+        function updateExpenseDisplay() {
+            updateCategorySummary();
+            updateExpenseHistory();
+            updateBudgetControl();
+        }
+        
+        function updateCategorySummary() {
+            const categories = {
+                transporte: 0,
+                comida: 0,
+                alojamiento: 0,
+                nocturna: 0,
+                compras: 0,
+                turismo: 0,
+                medico: 0,
+                otros: 0
+            };
+            
+            expenses.forEach(expense => {
+                if (categories.hasOwnProperty(expense.category)) {
+                    categories[expense.category] += expense.amount;
+                }
+            });
+            
+            document.getElementById('totalTransporte').textContent = `${categories.transporte.toLocaleString()} COP`;
+            document.getElementById('totalComida').textContent = `${categories.comida.toLocaleString()} COP`;
+            document.getElementById('totalAlojamiento').textContent = `${categories.alojamiento.toLocaleString()} COP`;
+            document.getElementById('totalNocturna').textContent = `${categories.nocturna.toLocaleString()} COP`;
+            document.getElementById('totalCompras').textContent = `${categories.compras.toLocaleString()} COP`;
+            document.getElementById('totalTurismo').textContent = `${categories.turismo.toLocaleString()} COP`;
+            document.getElementById('totalMedico').textContent = `${categories.medico.toLocaleString()} COP`;
+            document.getElementById('totalOtros').textContent = `${categories.otros.toLocaleString()} COP`;
+            
+            const total = Object.values(categories).reduce((sum, val) => sum + val, 0);
+            document.getElementById('totalGeneral').textContent = `${total.toLocaleString()} COP`;
+        }
+        
+        function updateExpenseHistory() {
+            const historyDiv = document.getElementById('expenseHistory');
+            
+            if (expenses.length === 0) {
+                historyDiv.innerHTML = '<p style="text-align: center; color: #666; padding: 20px;">No hay gastos registrados aún. ¡Agrega tu primer gasto arriba!</p>';
+                return;
+            }
+            
+            const sortedExpenses = [...expenses].sort((a, b) => b.id - a.id);
+            
+            historyDiv.innerHTML = sortedExpenses.map(expense => {
+                const categoryEmojis = {
+                    transporte: '🚌',
+                    comida: '🍽️',
+                    alojamiento: '🏠',
+                    nocturna: '🌙',
+                    compras: '🛍️',
+                    turismo: '🎯',
+                    medico: '🏥',
+                    otros: '📦'
+                };
+                
+                return `
+                    <div style="display: flex; justify-content: space-between; align-items: center; background: white; padding: 10px; border-radius: 5px; margin: 5px 0; border: 1px solid #e0e0e0;">
+                        <div style="flex: 1;">
+                            <div style="font-weight: bold;">${categoryEmojis[expense.category]} ${expense.description}</div>
+                            <div style="font-size: 0.9em; color: #666;">${expense.date}</div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="font-weight: bold; color: #667eea;">${expense.amount.toLocaleString()} COP</div>
+                            <button onclick="removeExpense(${expense.id})" style="background: #fd79a8; color: white; border: none; padding: 2px 6px; border-radius: 3px; cursor: pointer; font-size: 0.8em; margin-top: 2px;">❌</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        function updateBudgetControl() {
+            const budgetLimit = parseInt(document.getElementById('budgetLimit').value) || 4500000;
+            const totalSpent = expenses.reduce((sum, expense) => sum + expense.amount, 0);
+            
+            const percentage = Math.min((totalSpent / budgetLimit) * 100, 100);
+            const remaining = budgetLimit - totalSpent;
+            
+            document.getElementById('percentageUsed').textContent = `${percentage.toFixed(1)}%`;
+            document.getElementById('progressBar').style.width = `${percentage}%`;
+            document.getElementById('budgetRemaining').textContent = `${remaining.toLocaleString()} COP`;
+            
+            // Change color based on percentage
+            const progressBar = document.getElementById('progressBar');
+            if (percentage < 50) {
+                progressBar.style.background = '#00b894';
+            } else if (percentage < 80) {
+                progressBar.style.background = '#fdcb6e';
+            } else {
+                progressBar.style.background = '#e17055';
+            }
+        }
+        
+        function removeExpense(id) {
+            if (confirm('¿Estás seguro de que quieres eliminar este gasto?')) {
+                expenses = expenses.filter(expense => expense.id !== id);
+                updateExpenseDisplay();
+            }
+        }
+        
+        function clearAllExpenses() {
+            if (confirm('¿Estás seguro de que quieres eliminar TODOS los gastos? Esta acción no se puede deshacer.')) {
+                expenses = [];
+                updateExpenseDisplay();
+            }
+        }
+        
+        function exportExpenses() {
+            if (expenses.length === 0) {
+                alert('No hay gastos para exportar');
+                return;
+            }
+            
+            const csvContent = "data:text/csv;charset=utf-8," 
+                + "Fecha,Descripción,Categoría,Monto (COP)\n"
+                + expenses.map(e => `${e.date},"${e.description}",${e.category},${e.amount}`).join("\n");
+            
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", `gastos_viaje_colombia_${new Date().toISOString().split('T')[0]}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+        
+        // Initialize expense display when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            generateCalendar();
+            updateExpenseDisplay();
+        });
+    </script>
+</body>
+</html>
